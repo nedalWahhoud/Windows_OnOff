@@ -24,8 +24,8 @@ namespace Windows_OnOff
         {
 
         }
-        public const string telegram_botToken = "7994874117:AAFsUjIPDGZ1DAOl7T74bVcxFHdX8ROiZqU";
-        private const string telegram_chatId = "7517389515";
+        public const string telegram_botToken = "Your Token";
+        private const string telegram_chatId = "Your chat Id";
         private static string telegram_url = $"https://api.telegram.org/bot{telegram_botToken}";
         public async static Task<string> telegramSend_Message(string message)
         {
