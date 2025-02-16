@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using Microsoft.Win32.TaskScheduler;
 
 namespace Windows_OnOff
@@ -123,7 +125,6 @@ namespace Windows_OnOff
                     // Add triggers (e.g. run every hour)
                     task_definition.Triggers.Add(new DailyTrigger { StartBoundary = DateTime.Now, Repetition = new RepetitionPattern(TimeSpan.FromHours(1), TimeSpan.Zero) });
 
-
                     // Set a time limit if the script takes more than 1 hour (in case of errors or hangs)
                     task_definition.Settings.ExecutionTimeLimit = TimeSpan.FromHours(1);
                     // Action: Run PowerShell script
@@ -132,9 +133,6 @@ namespace Windows_OnOff
                         null, // arguments
                         null // working directory (optional)
                     ));
-
-
-
                     // Register task
                     task_service.RootFolder.RegisterTaskDefinition(task_name, task_definition);
 
@@ -153,8 +151,9 @@ namespace Windows_OnOff
                 var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_ComputerSystem");
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
-                    static_variables.user_name = queryObj["UserName"]?.ToString() + "^ ";
+                    static_variables.user_name = queryObj["UserName"]?.ToString();
                     _logWrite($"User Name is: {static_variables.user_name}");
+                    static_variables.user_name = static_variables.user_name + "^ ";
                 }
             }
             catch (Exception ex)
@@ -175,20 +174,26 @@ namespace Windows_OnOff
                 uc.Result = false;
                 return uc;
             }
+            // if Space is in the message before or after ^ then ignore
+            message = Regex.Replace(message, @"(^\^ | \^$| \^ )", "^");
             // 
-            string t_user_name = (message.Substring(0, message.IndexOf("^") + 1).ToLower()).Trim();
+            string t_user_name = (message.Substring(0, message.IndexOf(' ') + 1).ToLower()).Trim();
             // if all 
             if (t_user_name == "^")
                 message = (message.Substring(message.IndexOf("^") + 1).ToLower()).Trim();
             else
             {
-                //
-                t_user_name = (message.Substring(0, message.IndexOf("^")).ToLower()).Trim();
+
+                t_user_name = (message.Substring(0, message.IndexOf(' ')).ToLower()).Trim();
+                t_user_name = (t_user_name.Substring(t_user_name.IndexOf('^') + 1).ToLower()).Trim();
                 string user_name = (static_variables.user_name.Substring(0, static_variables.user_name.IndexOf("^")).ToLower()).Trim();
+                // if user is not the same return -1, the command is not executed
                 if (!(t_user_name == user_name))
-                    message = Translator.get_translate("userName_error", static_variables.language);
+                    message = "-1";
                 else
-                    message = message = (message.Substring(message.IndexOf("^") + 1).ToLower()).Trim();
+                {
+                    message = message = (message.Substring(message.IndexOf(' ') + 1).ToLower()).Trim();
+                }
             }
 
             _logWrite($"Check User result: {message}");
@@ -246,6 +251,31 @@ namespace Windows_OnOff
                 _logWrite($"Error while checking path: {ex.Message}");
                 return false;
             }
+        }
+        public void set_priority()
+        {
+            try
+            {
+                Process currentProcess = Process.GetCurrentProcess();
+                if (currentProcess.PriorityClass != ProcessPriorityClass.RealTime)
+                {
+                    currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
+                    _logWrite("Priority was set");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logWrite("Erorr at priority: " + ex.Message);
+            }
+        }
+        public int delay_time(int delay_time, int multiply_times,ref int multiply)
+        {
+            if (multiply >= multiply_times)
+                multiply = 1;
+            delay_time = delay_time * multiply;
+            multiply++;
+
+            return delay_time;
         }
         public void _logWrite(string st)
         {

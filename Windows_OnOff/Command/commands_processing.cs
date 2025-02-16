@@ -29,7 +29,7 @@ namespace Windows_OnOff
         public async Task<string> commands(user_checker_class message)
         {
             // text analyze
-            message.Command = text_analyze.analyze_text_en(message.Command);
+         //   message.Command = text_analyze.analyze_text_en(message.Command);
 
             // command if command was sent with message
             // (:) This letter is this separator are permanent

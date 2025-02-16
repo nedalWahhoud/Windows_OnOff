@@ -24,8 +24,8 @@ namespace Windows_OnOff
         {
 
         }
-        public const string telegram_botToken = "your token";
-        private const string telegram_chatId = "yout chatid";
+        public const string telegram_botToken = "7994874117:AAFsUjIPDGZ1DAOl7T74bVcxFHdX8ROiZqU";
+        private const string telegram_chatId = "7517389515";
         private static string telegram_url = $"https://api.telegram.org/bot{telegram_botToken}";
         public async static Task<string> telegramSend_Message(string message)
         {
@@ -109,6 +109,8 @@ namespace Windows_OnOff
                 if (message != null)
                 {
                     string ResponseCommadMessage = null;
+                    if (message.Command == "-1")
+                        continue;
                     if (message.Result)
                     {
                         var s = Task.Run(async () =>

@@ -9,6 +9,6 @@ namespace Windows_OnOff
 {
     internal class version
     {
-        public const string get_version = "1.0.0.1";
+        public const string get_version = "1.0.0.2";
     }
 }
