@@ -341,7 +341,7 @@ namespace Windows_OnOff
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string get_file_url = $"https://api.telegram.org/bot{telegram_processing.telegram_botToken}/getFile?file_id={file_id}";
+                    string get_file_url = $"https://api.telegram.org/bot{static_variables.telegram_botToken}/getFile?file_id={file_id}";
                     HttpResponseMessage response = await client.GetAsync(get_file_url);
                     string jsonResponse = await response.Content.ReadAsStringAsync();
                     // JSON-Answer parsen
@@ -356,7 +356,7 @@ namespace Windows_OnOff
                     // get extension
                     extension = Path.GetExtension(file_path) ?? extension;
                     // Photo with file_path download
-                    string file_url = $"https://api.telegram.org/file/bot{telegram_processing.telegram_botToken}/{file_path}";
+                    string file_url = $"https://api.telegram.org/file/bot{static_variables.telegram_botToken}/{file_path}";
                     byte[] file_bytes = await client.GetByteArrayAsync(file_url);
                     // data save
                     save_path = dp.file_path_editing(save_path, data_name, extension);

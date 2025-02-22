@@ -24,9 +24,8 @@ namespace Windows_OnOff
         {
 
         }
-        public const string telegram_botToken = "Your Token";
-        private const string telegram_chatId = "Your chat Id";
-        private static string telegram_url = $"https://api.telegram.org/bot{telegram_botToken}";
+      
+        private static string telegram_url = $"https://api.telegram.org/bot{static_variables.telegram_botToken}";
         public async static Task<string> telegramSend_Message(string message)
         {
             try
@@ -37,7 +36,7 @@ namespace Windows_OnOff
 
                     var payload = new
                     {
-                        chat_id = telegram_chatId,
+                        chat_id = static_variables.telegram_chatId,
                         text = static_variables.user_name + message
                     };
 
@@ -72,7 +71,7 @@ namespace Windows_OnOff
                     using (var form = new MultipartFormDataContent())
                     {
                         // add the Chat-Id
-                        form.Add(new StringContent(telegram_chatId), "chat_id");
+                        form.Add(new StringContent(static_variables.telegram_chatId), "chat_id");
                         // add Photo as Stramcontent
                         form.Add(new StreamContent(System.IO.File.OpenRead(path_data)), stream_name, Path.GetFileName(path_data));
                         // Send the request
@@ -170,6 +169,8 @@ namespace Windows_OnOff
                             // if more than 5 minutes the command is not executed
                             if (timeDifference.TotalMinutes <= 2)
                             {
+                                dp._logWrite($"Check User result: {message_data.Text},{message_data} 1");
+
                                 if (!string.IsNullOrEmpty(message_data.Text))
                                 {
                                     // If this is the target user

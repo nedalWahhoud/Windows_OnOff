@@ -177,14 +177,14 @@ namespace Windows_OnOff
             // if Space is in the message before or after ^ then ignore
             message = Regex.Replace(message, @"(^\^ | \^$| \^ )", "^");
             // 
-            string t_user_name = (message.Substring(0, message.IndexOf(' ') + 1).ToLower()).Trim();
+            string t_user_name = (message.Substring(0, message.IndexOf('^') + 1).ToLower()).Trim();
             // if all 
             if (t_user_name == "^")
                 message = (message.Substring(message.IndexOf("^") + 1).ToLower()).Trim();
             else
             {
 
-                t_user_name = (message.Substring(0, message.IndexOf(' ')).ToLower()).Trim();
+                t_user_name = (message.Substring(0, message.IndexOf('^')).ToLower()).Trim();
                 t_user_name = (t_user_name.Substring(t_user_name.IndexOf('^') + 1).ToLower()).Trim();
                 string user_name = (static_variables.user_name.Substring(0, static_variables.user_name.IndexOf("^")).ToLower()).Trim();
                 // if user is not the same return -1, the command is not executed
@@ -192,7 +192,7 @@ namespace Windows_OnOff
                     message = "-1";
                 else
                 {
-                    message = message = (message.Substring(message.IndexOf(' ') + 1).ToLower()).Trim();
+                    message = message = (message.Substring(message.IndexOf('^') + 1).ToLower()).Trim();
                 }
             }
 
@@ -289,7 +289,11 @@ namespace Windows_OnOff
             }
             catch (Exception ex)
             {
-
+               /* using (StreamWriter sw = File.AppendText(static_variables.log_path))
+                {
+                    sw.NewLine = "\n";
+                    sw.WriteLine(DateTime.Now.ToString("dd.MM.yyyy  HH:mm ") + "Error when Log writing " + ex.Message);
+                }*/
             }
         }
         public void _logDelete()
@@ -298,9 +302,13 @@ namespace Windows_OnOff
             {
                 if (File.Exists(static_variables.log_path)) { File.Delete(static_variables.log_path); }
             }
-            catch(Exception e) 
+            catch(Exception ex)
             {
-
+              /*  using (StreamWriter sw = File.AppendText(static_variables.log_path))
+                {
+                    sw.NewLine = "\n";
+                    sw.WriteLine(DateTime.Now.ToString("dd.MM.yyyy  HH:mm ") + "Error when Log deleting " + ex.Message);
+                }*/
             }
         }
     }

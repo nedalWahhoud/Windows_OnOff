@@ -11,6 +11,8 @@ namespace Windows_OnOff
 {
     internal class static_variables
     {
+        public const string telegram_botToken = "7994874117:AAFsUjIPDGZ1DAOl7T74bVcxFHdX8ROiZqU";
+        public const string telegram_chatId = "7517389515";
         public static string log_path = null;
         public static string language = null;
         public static string Service_name = null;
