@@ -1,7 +1,7 @@
 # :pencil: Description
 This Windows Service is programmed for personal needs, which communicates with the computer via Telegram bot, to alert the user when the computer is started, shut down, unlocked or locked (In general, if the Windows service is turned off or on, it can be improved to be more accurate if necessary in the future) via telegram bot
-![Screenshot 2025-02-07 162712](https://github.com/user-attachments/assets/48c455bc-3e68-4cbe-89bf-2c91f3cd5142)
-![Screenshot 2025-02-07 16340tttttttt1](https://github.com/user-attachments/assets/7c30f2db-6a0d-4733-8ea0-a4238a09c794)
+![Screenshot 2025-02-22 075116](https://github.com/user-attachments/assets/a198d298-c076-4f30-b03c-356fff31d5b1)
+![Screenshot 2025-02-22 075146](https://github.com/user-attachments/assets/4bcd3ce4-9994-4a53-ba55-2431bcf9ea0e)
 # :gear: Usage
 This service can perform many tasks through certain commands, for example sending or get a file (video images, etc.).
 ![Screenshot 2025-02-07 181036ffffffffffffffffffffff](https://github.com/user-attachments/assets/4d9034fd-5c21-4865-b1e1-d2cc983a6b18)
