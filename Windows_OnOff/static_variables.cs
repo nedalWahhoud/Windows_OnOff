@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace Windows_OnOff
 {
     internal class static_variables
     {
-        public const string telegram_botToken = "7994874117:AAFsUjIPDGZ1DAOl7T74bVcxFHdX8ROiZqU";
-        public const string telegram_chatId = "7517389515";
+        public const string telegram_botToken = "Your Token";
+        public const string telegram_chatId = "Yout chatId";
         public static string log_path = null;
         public static string language = null;
         public static string Service_name = null;
