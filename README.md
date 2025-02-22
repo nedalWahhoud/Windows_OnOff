@@ -7,7 +7,7 @@ This service can perform many tasks through certain commands, for example sendin
 ![Screenshot 2025-02-07 181036ffffffffffffffffffffff](https://github.com/user-attachments/assets/4d9034fd-5c21-4865-b1e1-d2cc983a6b18)
 by writing the device name, then the user name, then the command to be executed, then this Caret ^
 #### :keyboard: Commands explanation
-  **shutdown** "To shut down the Computer"
+  **shutdown** "To shut down the Computer"</br>
   **sleep** "To sleep the Computer"</br>
   **hibernate** "To hibernate the Computer" </br>
   **server_info** "Mostly for testing"</br>
