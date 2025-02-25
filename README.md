@@ -29,6 +29,10 @@ With service_install.bat Script you can install the service with just one click
 ![Screenshot 2025-02-07 181428](https://github.com/user-attachments/assets/a06a5ddb-9536-4c13-b880-0ae54dfcf116)
 With script you can also simply start, stop or delete
 ![Screenshot 2025-02-07 191436](https://github.com/user-attachments/assets/85397602-4959-48d0-aa20-c8bb537f7a4b)
+# :rocket: Entry in the variables of ChatId and Bot token in static_variables.cs
+you have to enter your ChatId and bot Token in the variables, in which the chat with your computer is communicated
+![Screenshot 2025-02-25 125304](https://github.com/user-attachments/assets/b53d90d8-5654-417e-abec-cc347e5254fb)
+
 # :hammer_and_wrench: Task Scheduler
 The service create a task in "Task Scheduler" which ensures that the service at Windows startup, 
 and every hour it is checked that the service is running
